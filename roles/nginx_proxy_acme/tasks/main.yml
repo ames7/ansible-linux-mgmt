@@ -1,4 +1,10 @@
 ---
+- name: Install pip3 packages
+  ansible.builtin.dnf: 
+    name: 
+      - python3-pip
+    state: present
+    
 - name: Install required python packages
   ansible.builtin.pip:
     name:
@@ -33,8 +39,8 @@
 - name: Configure nginx site with ssl | {{ acme_domain_name }}
   when: not r_crt_stat.stat.exists or not r_crt_info.valid_at.one_month|default(false)
   block:
-    - name: Setup site | {{ acme_domain_name }}
-      ansible.builtin.include_tasks: setup_site.yml
+   # - name: Setup site | {{ acme_domain_name }}
+     # ansible.builtin.include_tasks: setup_site.yml
 
     - name: Generate cert | {{ acme_domain_name }}
       ansible.builtin.include_tasks: generate_crt.yml
