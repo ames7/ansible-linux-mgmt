@@ -30,7 +30,7 @@
 - name: Create DNS record for sample.com dns-01 challenge
   amazon.aws.route53:
     zone: sandbox1263.opentlc.com
-    record: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].record }}"
+    record: "{{ _acme_challenge.challenge_data[acme_domain_name]['dns-01'].record }}"
     type: TXT
     ttl: 60
     state: present
