@@ -37,7 +37,7 @@
     wait: true
     # Note: route53 requires TXT entries to be enclosed in quotes
     value: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].resource_value | community.dns.quote_txt(always_quote=true) }}"
-  when: r_acme_challenge is changed and 'acme_domain_name' in _acme_challenge.challenge_data
+  when: r_acme_challenge is changed and 'acme_domain_name' in _acme_challenge.challenge_data_dns
 
 # - name: Create .well-known/acme-challenge directory
 #   ansible.builtin.file:
