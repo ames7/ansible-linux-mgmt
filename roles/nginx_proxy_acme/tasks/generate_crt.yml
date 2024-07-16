@@ -41,7 +41,7 @@
     state: present
     wait: true
     # Note: route53 requires TXT entries to be enclosed in quotes
-    value: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].resource_value | community.dns.quote_txt(always_quote=true) }}"
+    value: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].resource_value }}"
   when: r_acme_challenge is changed and acme_domain_name in r_acme_challenge.challenge_data
 
 # - name: Create .well-known/acme-challenge directory
