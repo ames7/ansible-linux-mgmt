@@ -35,14 +35,14 @@
 - name: Create DNS record for sample.com dns-01 challenge
   amazon.aws.route53:
     zone: sandbox1263.opentlc.com
-    record: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].record }}"
+    record: "{{ r_acme_challenge.challenge_data['sandbox1263.opentlc.com']['dns-01'].record }}"
     type: TXT
     ttl: 60
     state: present
     wait: true
     # Note: route53 requires TXT entries to be enclosed in quotes
-    value: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].resource_value | community.dns.quote_txt(always_quote=true) }}"
-  when: r_acme_challenge is changed and 'acme_domain_name' in r_acme_challenge.challenge_data_dns
+    value: "{{ r_acme_challenge.challenge_data['sandbox1263.opentlc.com']['dns-01'].resource_value | community.dns.quote_txt(always_quote=true) }}"
+  when: r_acme_challenge is changed and 'sandbox1263.opentlc.com' in r_acme_challenge.challenge_data
 
 # - name: Create .well-known/acme-challenge directory
 #   ansible.builtin.file:
