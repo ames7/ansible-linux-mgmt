@@ -30,14 +30,14 @@
 - name: Create DNS record for sample.com dns-01 challenge
   amazon.aws.route53:
     zone: sandbox1263.opentlc.com
-    record: "{{ _acme_challenge.challenge_data[acme_domain_name]['dns-01'].record }}"
+    record: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].record }}"
     type: TXT
     ttl: 60
     state: present
     wait: true
     # Note: route53 requires TXT entries to be enclosed in quotes
-    value: "{{ _acme_challenge.challenge_data[acme_domain_name]['dns-01'].resource_value | community.dns.quote_txt(always_quote=true) }}"
-  when: _acme_challenge is changed and 'acme_domain_name' in _acme_challenge.challenge_data
+    value: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].resource_value | community.dns.quote_txt(always_quote=true) }}"
+  when: r_acme_challenge is changed and 'acme_domain_name' in _acme_challenge.challenge_data
 
 # - name: Create .well-known/acme-challenge directory
 #   ansible.builtin.file:
@@ -67,7 +67,7 @@
     dest: "{{ acme_letsencrypt_certs_dir }}/{{ acme_domain_name }}.pem"
     chain_dest: "{{ acme_letsencrypt_certs_dir }}/chain_{{ acme_domain_name }}.pem"
     fullchain_dest: "{{ acme_letsencrypt_certs_dir }}/fullchain_{{ acme_domain_name }}.pem"
-    data: "{{ _acme_challenge }}"
+    data: "{{ r_acme_challenge }}"
 
 # - name: Template nginx site conf
 #   notify: Restart nginx
