@@ -10,6 +10,8 @@
     name:
       - setuptools
       - cryptography
+      - botocore
+      - boto3
     state: present
 
 - name: Create required directories
