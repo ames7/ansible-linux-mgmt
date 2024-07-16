@@ -27,10 +27,15 @@
     fullchain_dest: "{{ acme_letsencrypt_certs_dir }}/fullchain_{{ acme_domain_name }}.pem"
     remaining_days: 91
 
+- name: debug r_acme_challenge
+  ansible.builtin.debug: 
+    msg: "{{ r_acme_challenge }}"
+
+
 - name: Create DNS record for sample.com dns-01 challenge
   amazon.aws.route53:
     zone: sandbox1263.opentlc.com
-    record: "{{ _acme_challenge.challenge_data[acme_domain_name]['dns-01'].record }}"
+    record: "{{ r_acme_challenge.challenge_data[acme_domain_name]['dns-01'].record }}"
     type: TXT
     ttl: 60
     state: present
