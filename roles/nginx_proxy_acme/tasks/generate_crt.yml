@@ -28,9 +28,8 @@
     remaining_days: 91
 
 - name: debug r_acme_challenge
-  ansible.builtin.debug: 
+  ansible.builtin.debug:
     msg: "{{ r_acme_challenge }}"
-
 
 - name: Create DNS record for sample.com dns-01 challenge
   amazon.aws.route53:
